@@ -1,0 +1,1153 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Byte Zone — متجر إكسسوارات الألعاب والحاسوب</title>
+  <link rel="icon" type="image/jpeg" href="IMG_6645.jpeg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-page: #f4f6f9;
+      --bg-card: #ffffff;
+      --bg-dark: #0f172a;
+      --bg-dark-soft: #1e293b;
+      --accent-teal: #0ea5e9;
+      --accent-red: #dc2626;
+      --accent-red-hover: #b91c1c;
+      --accent-green: #16a34a;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --border-light: #e2e8f0;
+      --radius: 12px;
+      --shadow: 0 4px 16px rgba(15, 23, 42, 0.06);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Cairo', sans-serif;
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      line-height: 1.6;
+    }
+
+    .top-bar {
+      background: linear-gradient(90deg, #0284c7, #0891b2);
+      color: #ffffff;
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 7px 16px;
+      text-align: center;
+    }
+
+    .top-bar-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 18px;
+    }
+
+    header {
+      background-color: var(--bg-dark);
+      color: #ffffff;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.18);
+    }
+
+    .header-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: #ffffff;
+    }
+
+    .brand-logo {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #38bdf8;
+      box-shadow: 0 0 14px rgba(56, 189, 248, 0.35);
+      flex-shrink: 0;
+    }
+
+    .brand-text h1 {
+      font-size: 1.25rem;
+      font-weight: 800;
+      line-height: 1.2;
+    }
+
+    .brand-text span {
+      font-size: 0.78rem;
+      color: #94a3b8;
+    }
+
+    .search-box {
+      flex: 1;
+      min-width: 240px;
+      max-width: 520px;
+      position: relative;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 10px 42px 10px 16px;
+      border-radius: 10px;
+      border: 1px solid #334155;
+      background-color: var(--bg-dark-soft);
+      color: #ffffff;
+      font-family: 'Cairo', sans-serif;
+      font-size: 0.92rem;
+      outline: none;
+    }
+
+    .search-box input::placeholder {
+      color: #94a3b8;
+    }
+
+    .search-box input:focus {
+      border-color: var(--accent-teal);
+    }
+
+    .search-icon {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #94a3b8;
+      pointer-events: none;
+    }
+
+    .filters-bar {
+      background-color: #ffffff;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .filters-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .categories {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 2px;
+      scrollbar-width: thin;
+    }
+
+    .cat-btn {
+      background: #f1f5f9;
+      color: var(--text-main);
+      border: 1px solid transparent;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-family: 'Cairo', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+
+    .cat-btn:hover {
+      background: #e2e8f0;
+    }
+
+    .cat-btn.active {
+      background: var(--bg-dark);
+      color: #ffffff;
+    }
+
+    .stock-toggle {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.86rem;
+      font-weight: 700;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .stock-toggle input {
+      width: 17px;
+      height: 17px;
+      accent-color: var(--accent-teal);
+      cursor: pointer;
+    }
+
+    main {
+      max-width: 1280px;
+      margin: 24px auto;
+      padding: 0 20px 48px;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .section-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+    }
+
+    .products-count {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(265px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.1);
+    }
+
+    .card-img-wrap {
+      background: #f8fafc;
+      height: 210px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .card-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .card-body {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .card-title {
+      font-size: 1.02rem;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    .card-desc {
+      font-size: 0.86rem;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+      flex: 1;
+    }
+
+    .card-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      gap: 8px;
+    }
+
+    .price {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--bg-dark);
+    }
+
+    .stock-badge {
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 999px;
+    }
+
+    .in-stock {
+      background: #dcfce7;
+      color: var(--accent-green);
+    }
+
+    .out-stock {
+      background: #fee2e2;
+      color: var(--accent-red);
+    }
+
+    .btn-order {
+      width: 100%;
+      background-color: var(--accent-red);
+      color: #ffffff;
+      border: none;
+      border-radius: 9px;
+      padding: 10px 14px;
+      font-family: 'Cairo', sans-serif;
+      font-size: 0.92rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .btn-order:hover:not(:disabled) {
+      background-color: var(--accent-red-hover);
+    }
+
+    .btn-order:disabled {
+      background-color: #cbd5e1;
+      color: #64748b;
+      cursor: not-allowed;
+    }
+
+    .state-box {
+      background: #ffffff;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius);
+      padding: 40px 20px;
+      text-align: center;
+      color: var(--text-muted);
+      font-weight: 600;
+      grid-column: 1 / -1;
+    }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.65);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      z-index: 200;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .modal {
+      background: #ffffff;
+      border-radius: var(--radius);
+      width: 100%;
+      max-width: 460px;
+      max-height: 92vh;
+      overflow-y: auto;
+      padding: 22px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .modal-header h3 {
+      font-size: 1.05rem;
+      font-weight: 800;
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      font-size: 1.4rem;
+      cursor: pointer;
+      color: var(--text-muted);
+      line-height: 1;
+    }
+
+    .shipping-note {
+      background: #fff7ed;
+      border: 1px solid #fed7aa;
+      color: #9a3412;
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 8px 12px;
+      border-radius: 8px;
+      margin-bottom: 14px;
+    }
+
+    .form-row-2 {
+      display: grid;
+      grid-template-columns: 1fr 110px;
+      gap: 10px;
+    }
+
+    .form-group {
+      margin-bottom: 12px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 9px 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font-family: 'Cairo', sans-serif;
+      font-size: 0.9rem;
+      background-color: #ffffff;
+    }
+
+    .delivery-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .delivery-option {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 10px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .delivery-option input {
+      width: auto;
+      accent-color: #ea580c;
+    }
+
+    .order-summary {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin-bottom: 14px;
+      font-size: 0.88rem;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 5px;
+      color: #334155;
+      font-weight: 600;
+    }
+
+    .summary-row.total {
+      border-top: 1px dashed #cbd5e1;
+      padding-top: 8px;
+      margin-top: 6px;
+      margin-bottom: 0;
+      font-size: 1.02rem;
+      font-weight: 800;
+      color: var(--bg-dark);
+    }
+
+    .desk-warning {
+      color: #b45309;
+      font-size: 0.78rem;
+      font-weight: 700;
+      margin-top: 4px;
+      display: none;
+    }
+
+    .form-msg {
+      margin-top: 10px;
+      font-size: 0.86rem;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    footer {
+      background: var(--bg-dark);
+      color: #94a3b8;
+      text-align: center;
+      padding: 20px;
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-bar">
+    <div class="top-bar-inner">
+      <span>✔ الدفع عند الاستلام</span>
+      <span>•</span>
+      <span>🚚 توصيل سريع عبر DHD Livraison</span>
+      <span>•</span>
+      <span>⚡ إكسسوارات الألعاب والحاسوب</span>
+    </div>
+  </div>
+
+  <header>
+    <div class="header-inner">
+      <a href="#" class="brand">
+        <img src="IMG_6645.jpeg" alt="Byte Zone" class="brand-logo" />
+        <div class="brand-text">
+          <h1>Byte Zone</h1>
+          <span>متجر إكسسوارات الألعاب والحاسوب</span>
+        </div>
+      </a>
+
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input
+          type="search"
+          id="searchInput"
+          placeholder="ابحث عن ميكروفون، ذراع تحكم، كيبورد، مبرد، ساعة..."
+          autocomplete="off"
+        />
+      </div>
+    </div>
+  </header>
+
+  <div class="filters-bar">
+    <div class="filters-inner">
+      <div class="categories" id="categoryButtons">
+        <button type="button" class="cat-btn active" data-cat="all">الكل</button>
+      </div>
+
+      <label class="stock-toggle">
+        <input type="checkbox" id="inStockOnly" />
+        <span>متوفر في المخزون فقط</span>
+      </label>
+    </div>
+  </div>
+
+  <main>
+    <div class="section-head">
+      <h2 class="section-title">المنتجات المتوفرة</h2>
+      <span class="products-count" id="productsCount">جاري التحميل...</span>
+    </div>
+
+    <div id="productsContainer" class="grid">
+      <div class="state-box">جاري تحميل منتجات Byte Zone...</div>
+    </div>
+  </main>
+
+  <div class="modal-backdrop" id="orderModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 id="modalProductTitle">طلب منتج</h3>
+        <button type="button" class="close-btn" id="closeModal" aria-label="إغلاق">&times;</button>
+      </div>
+
+      <div class="shipping-note">
+        🚚 التوصيل عبر <strong>DHD Livraison</strong> — اختر الولاية ونوع التوصيل لحساب التكلفة الإجمالية تلقائياً.
+      </div>
+
+      <form id="orderForm">
+        <input type="hidden" id="orderProductName" />
+        <input type="hidden" id="orderUnitPrice" />
+
+        <div class="form-row-2">
+          <div class="form-group">
+            <label for="customerName">الاسم الكامل</label>
+            <input type="text" id="customerName" required placeholder="اكتب اسمك الكامل" />
+          </div>
+          <div class="form-group">
+            <label for="orderQty">الكمية</label>
+            <input type="number" id="orderQty" min="1" value="1" required />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="customerPhone">رقم الهاتف</label>
+          <input type="tel" id="customerPhone" required placeholder="05 / 06 / 07 ..." />
+        </div>
+
+        <div class="form-group">
+          <label for="customerWilaya">الولاية</label>
+          <select id="customerWilaya" required>
+            <option value="">-- اختر الولاية --</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>نوع التوصيل (DHD)</label>
+          <div class="delivery-options">
+            <label class="delivery-option">
+              <input type="radio" name="deliveryType" value="home" checked />
+              <span>للمنزل (Domicile)</span>
+            </label>
+            <label class="delivery-option" id="deskOptionLabel">
+              <input type="radio" name="deliveryType" value="desk" id="deskRadio" />
+              <span>للمكتب (Stop Desk)</span>
+            </label>
+          </div>
+          <div class="desk-warning" id="deskWarning">⚠️ التوصيل للمكتب (Stop Desk) غير متوفر حالياً في هذه الولاية، تم اختيار التوصيل للمنزل.</div>
+        </div>
+
+        <div class="form-group">
+          <label for="customerAddress">البلدية / العنوان بالتفصيل</label>
+          <textarea id="customerAddress" rows="2" required placeholder="اكتب البلدية أو الحي أو مكتب DHD الأقرب إليك"></textarea>
+        </div>
+
+        <div class="order-summary">
+          <div class="summary-row">
+            <span>سعر المنتج (<span id="summaryQty">1</span>):</span>
+            <span id="summaryProductPrice">0 دج</span>
+          </div>
+          <div class="summary-row">
+            <span>تكلفة التوصيل (DHD):</span>
+            <span id="summaryShippingPrice">اختر الولاية</span>
+          </div>
+          <div class="summary-row total">
+            <span>المجموع الإجمالي:</span>
+            <span id="summaryGrandTotal">0 دج</span>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-order" id="submitOrderBtn">تأكيد الطلب</button>
+        <div class="form-msg" id="orderMessage"></div>
+      </form>
+    </div>
+  </div>
+
+  <footer>
+    Byte Zone — متجر إكسسوارات الألعاب والحاسوب • التوصيل عبر DHD Livraison © 2026
+  </footer>
+
+  <script>
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwxyQOIsLhlxuN6MQlbE_QwyPHfZU5LjBOwntBLtQXGYjikb-hBe4Mw4zZ7KEBe5cqE/exec";
+
+    // تسعيرة DHD Livraison انطلاقاً من بسكرة (منزل: home / مكتب: desk)
+    const DHD_TARIFFS = {
+      "01": { name: "01 - أدرار", home: 1100, desk: 600 },
+      "02": { name: "02 - الشلف", home: 700, desk: 400 },
+      "03": { name: "03 - الأغواط", home: 900, desk: 500 },
+      "04": { name: "04 - أم البواقي", home: 700, desk: 400 },
+      "05": { name: "05 - باتنة", home: 600, desk: 400 },
+      "06": { name: "06 - بجاية", home: 700, desk: 400 },
+      "07": { name: "07 - بسكرة", home: 500, desk: 300 },
+      "08": { name: "08 - بشار", home: 1100, desk: 600 },
+      "09": { name: "09 - البليدة", home: 600, desk: 350 },
+      "10": { name: "10 - البويرة", home: 700, desk: 400 },
+      "11": { name: "11 - تمنراست", home: 1300, desk: 800 },
+      "12": { name: "12 - تبسة", home: 700, desk: 400 },
+      "13": { name: "13 - تلمسان", home: 800, desk: 400 },
+      "14": { name: "14 - تيارت", home: 800, desk: 400 },
+      "15": { name: "15 - تيزي وزو", home: 700, desk: 400 },
+      "16": { name: "16 - الجزائر", home: 500, desk: 350 },
+      "17": { name: "17 - الجلفة", home: 700, desk: 500 },
+      "18": { name: "18 - جيجل", home: 700, desk: 400 },
+      "19": { name: "19 - سطيف", home: 650, desk: 400 },
+      "20": { name: "20 - سعيدة", home: 800, desk: 400 },
+      "21": { name: "21 - سكيكدة", home: 700, desk: 400 },
+      "22": { name: "22 - سيدي بلعباس", home: 800, desk: 400 },
+      "23": { name: "23 - عنابة", home: 700, desk: 400 },
+      "24": { name: "24 - قالمة", home: 800, desk: 400 },
+      "25": { name: "25 - قسنطينة", home: 700, desk: 400 },
+      "26": { name: "26 - المدية", home: 700, desk: 400 },
+      "27": { name: "27 - مستغانم", home: 700, desk: 400 },
+      "28": { name: "28 - المسيلة", home: 650, desk: 400 },
+      "29": { name: "29 - معسكر", home: 750, desk: 400 },
+      "30": { name: "30 - ورقلة", home: 900, desk: 500 },
+      "31": { name: "31 - وهران", home: 700, desk: 400 },
+      "32": { name: "32 - البيض", home: 1000, desk: 500 },
+      "33": { name: "33 - إليزي", home: 1300, desk: 600 },
+      "34": { name: "34 - برج بوعريريج", home: 700, desk: 400 },
+      "35": { name: "35 - بومرداس", home: 700, desk: 400 },
+      "36": { name: "36 - الطارف", home: 800, desk: 400 },
+      "37": { name: "37 - تندوف", home: 1300, desk: 600 },
+      "38": { name: "38 - تيسمسيلت", home: 800, desk: 400 },
+      "39": { name: "39 - الوادي", home: 650, desk: 500 },
+      "40": { name: "40 - خنشلة", home: 600, desk: 500 },
+      "41": { name: "41 - سوق أهراس", home: 700, desk: 500 },
+      "42": { name: "42 - تيبازة", home: 700, desk: 400 },
+      "43": { name: "43 - ميلة", home: 700, desk: 400 },
+      "44": { name: "44 - عين الدفلى", home: 700, desk: 400 },
+      "45": { name: "45 - النعامة", home: 1000, desk: 500 },
+      "46": { name: "46 - عين تموشنت", home: 800, desk: 400 },
+      "47": { name: "47 - غرداية", home: 900, desk: 500 },
+      "48": { name: "48 - غليزان", home: 700, desk: 400 },
+      "49": { name: "49 - تيميمون", home: 1300, desk: 600 },
+      "51": { name: "51 - أولاد جلال", home: 900, desk: 500 },
+      "52": { name: "52 - بني عباس", home: 1300, desk: 0 },
+      "53": { name: "53 - عين صالح", home: 1300, desk: 600 },
+      "55": { name: "55 - تقرت", home: 900, desk: 500 },
+      "57": { name: "57 - المغير", home: 900, desk: 0 },
+      "58": { name: "58 - المنيعة", home: 1000, desk: 500 }
+    };
+
+    const DEFAULT_PRODUCTS = [
+      {
+        name: "Hoco L25 Bright",
+        price: 4100,
+        stock: 10,
+        image: "",
+        desc: "ميكروفون ألعاب مكتبي بإضاءة RGB والتقاط صوت 360 درجة وزر كتم سريع."
+      },
+      {
+        name: "مبرد حاسوب x64",
+        price: 2800,
+        stock: 2,
+        image: "",
+        desc: "مبرد بـ 4 مراوح وإضاءة زرقاء لتبريد الحاسوب أثناء اللعب."
+      },
+      {
+        name: "V13 Wireless Gamepad",
+        price: 2150,
+        stock: 5,
+        image: "",
+        desc: "يد تحكم بلوتوث لاسلكية مع حامل هاتف مدمج، متوافقة مع Android و iOS و PC و Switch و PS3/PS4."
+      },
+      {
+        name: "JEDEL 60% Gaming Keyboard",
+        price: 0,
+        stock: 0,
+        image: "",
+        desc: "كيبورد ألعاب مدمج بحجم 60% بإضاءة RGB خلفية وتصميم ثنائي اللون أبيض وأسود."
+      },
+      {
+        name: "Yanmai SF-777R RGB Microphone",
+        price: 4600,
+        stock: 5,
+        image: "",
+        desc: "ميكروفون كوندنسر احترافي بإضاءة RGB مع فلتر صوت وحامل ثلاثي مانع للانزلاق، يعمل عبر USB و Type-C."
+      },
+      {
+        name: "GameSir Nova HD Rumble Wireless Controller",
+        price: 7200,
+        stock: 5,
+        image: "",
+        desc: "ذراع تحكم لاسلكية GameSir Nova مع اهتزاز HD Rumble وعصي تحكم مقاومة للانجراف."
+      }
+    ];
+
+    const CATEGORY_RULES = [
+      {
+        id: "mics",
+        label: "ميكروفونات",
+        keywords: ["ميكروفون", "ميكروفونات", "مايك", "mic", "microphone", "mics", "condenser", "hoco", "yanmai", "sf-777r"]
+      },
+      {
+        id: "controllers",
+        label: "أذرع تحكم",
+        keywords: ["ذراع", "أذرع", "يد تحكم", "gamepad", "controller", "joystick", "v13", "gamesir"]
+      },
+      {
+        id: "earbuds",
+        label: "سماعات لاسلكية",
+        keywords: ["سماعات لاسلكية", "إيربودز", "ايربودز", "airpods", "earbuds", "tws", "in-ear"]
+      },
+      {
+        id: "headphones",
+        label: "سماعات بلوتوث ورأس",
+        keywords: ["سماعة رأس", "سماعات رأس", "سماعة بلوتوث", "سماعات بلوتوث", "headset", "headphones", "gaming headset"]
+      },
+      {
+        id: "watches",
+        label: "ساعات ذكية",
+        keywords: ["ساعة ذكية", "ساعات ذكية", "ساعة", "ساعات", "smartwatch", "smart watch", "watch"]
+      },
+      {
+        id: "phones",
+        label: "هواتف",
+        keywords: ["هاتف", "هواتف", "موبايل", "phone", "smartphone", "iphone", "samsung", "redmi", "infinix", "realme"]
+      },
+      {
+        id: "cases",
+        label: "بوشات وحماية",
+        keywords: ["بوشات", "بوشة", "كفر", "حماية", "case", "cover", "screen protector", "tempered glass"]
+      },
+      {
+        id: "chargers",
+        label: "شواحن وكابلات",
+        keywords: ["شاحن", "شواحن", "كابل", "كابلات", "كيبل", "charger", "cable", "type-c", "usb", "powerbank", "باور بانك"]
+      },
+      {
+        id: "cameras",
+        label: "إكسسوارات تصوير",
+        keywords: ["تصوير", "كاميرا", "ترايبود", "tripod", "ring light", "رينغ لايت", "gimbal", "camera", "streaming"]
+      },
+      {
+        id: "keyboards",
+        label: "كيبوردات وماوس",
+        keywords: ["كيبورد", "لوحة مفاتيح", "ماوس", "فأرة", "keyboard", "mouse", "gaming mouse", "jedel"]
+      },
+      {
+        id: "coolers",
+        label: "مبردات",
+        keywords: ["مبرد", "مبردات", "تبريد", "مراوح", "cooler", "cooling pad", "fan", "x64"]
+      }
+    ];
+
+    var allProducts = [];
+    var activeCategory = "all";
+
+    const productsContainer = document.getElementById("productsContainer");
+    const productsCount = document.getElementById("productsCount");
+    const searchInput = document.getElementById("searchInput");
+    const inStockOnly = document.getElementById("inStockOnly");
+    const categoryButtonsContainer = document.getElementById("categoryButtons");
+
+    const orderModal = document.getElementById("orderModal");
+    const closeModal = document.getElementById("closeModal");
+    const orderForm = document.getElementById("orderForm");
+    const modalProductTitle = document.getElementById("modalProductTitle");
+    const orderProductName = document.getElementById("orderProductName");
+    const orderUnitPrice = document.getElementById("orderUnitPrice");
+    const orderQty = document.getElementById("orderQty");
+    const customerWilaya = document.getElementById("customerWilaya");
+    const orderMessage = document.getElementById("orderMessage");
+    const deskRadio = document.getElementById("deskRadio");
+    const deskWarning = document.getElementById("deskWarning");
+    const summaryQty = document.getElementById("summaryQty");
+    const summaryProductPrice = document.getElementById("summaryProductPrice");
+    const summaryShippingPrice = document.getElementById("summaryShippingPrice");
+    const summaryGrandTotal = document.getElementById("summaryGrandTotal");
+
+    // تعبئة قائمة الولايات من جدول تسعيرة DHD
+    Object.keys(DHD_TARIFFS)
+      .sort()
+      .forEach((code) => {
+        const opt = document.createElement("option");
+        opt.value = code;
+        opt.textContent = DHD_TARIFFS[code].name;
+        customerWilaya.appendChild(opt);
+      });
+
+    function parsePriceNumber(price) {
+      if (typeof price === "number") return Number.isFinite(price) ? Math.round(price) : 0;
+      const cleaned = String(price ?? "")
+        .replace(/[٠-٩]/g, (d) => "0123456789"["٠-٩".indexOf(d)])
+        .replace(/[^\d.]/g, "");
+      const num = Number(cleaned);
+      return Number.isFinite(num) ? Math.round(num) : 0;
+    }
+
+    function formatPrice(price) {
+      const num = parsePriceNumber(price);
+      if (!num) return "حسب الطلب";
+      return `${num.toLocaleString("en-US")} دج`;
+    }
+
+    function calculateShippingAndTotal() {
+      const qty = Math.max(1, parsePriceNumber(orderQty.value) || 1);
+      const unitPrice = parsePriceNumber(orderUnitPrice.value);
+      const productsSubtotal = unitPrice * qty;
+      const wilayaCode = customerWilaya.value;
+      const selectedType = document.querySelector('input[name="deliveryType"]:checked').value;
+
+      summaryQty.textContent = qty;
+      summaryProductPrice.textContent = unitPrice ? `${productsSubtotal.toLocaleString("en-US")} دج` : "حسب الطلب";
+
+      if (!wilayaCode || !DHD_TARIFFS[wilayaCode]) {
+        deskWarning.style.display = "none";
+        deskRadio.disabled = false;
+        summaryShippingPrice.textContent = "اختر الولاية";
+        summaryGrandTotal.textContent = unitPrice ? `${productsSubtotal.toLocaleString("en-US")} دج` : "حسب الطلب";
+        return { shippingCost: 0, productsSubtotal, grandTotal: productsSubtotal, wilayaLabel: "", deliveryLabel: "" };
+      }
+
+      const tariff = DHD_TARIFFS[wilayaCode];
+      let effectiveType = selectedType;
+
+      if (tariff.desk === 0) {
+        deskRadio.disabled = true;
+        if (selectedType === "desk") {
+          document.querySelector('input[name="deliveryType"][value="home"]').checked = true;
+          effectiveType = "home";
+          deskWarning.style.display = "block";
+        } else {
+          deskWarning.style.display = "none";
+        }
+      } else {
+        deskRadio.disabled = false;
+        deskWarning.style.display = "none";
+      }
+
+      const shippingCost = effectiveType === "desk" ? tariff.desk : tariff.home;
+      const deliveryLabel = effectiveType === "desk" ? "استلام من المكتب (Stop Desk)" : "توصيل للمنزل (Domicile)";
+      const grandTotal = productsSubtotal + shippingCost;
+
+      summaryShippingPrice.textContent = `${shippingCost.toLocaleString("en-US")} دج`;
+      summaryGrandTotal.textContent = unitPrice
+        ? `${grandTotal.toLocaleString("en-US")} دج`
+        : `${shippingCost.toLocaleString("en-US")} دج (توصيل فقط)`;
+
+      return { shippingCost, productsSubtotal, grandTotal, wilayaLabel: tariff.name, deliveryLabel };
+    }
+
+    customerWilaya.addEventListener("change", calculateShippingAndTotal);
+    orderQty.addEventListener("input", calculateShippingAndTotal);
+    document.querySelectorAll('input[name="deliveryType"]').forEach((r) => {
+      r.addEventListener("change", calculateShippingAndTotal);
+    });
+
+    function detectCategory(product) {
+      const explicitCat = String(product.category || product.cat || "").trim().toLowerCase();
+      if (explicitCat) {
+        const matchedRule = CATEGORY_RULES.find(
+          (r) =>
+            r.id.toLowerCase() === explicitCat ||
+            r.label.toLowerCase() === explicitCat ||
+            r.keywords.some((k) => explicitCat.includes(k.toLowerCase()))
+        );
+        if (matchedRule) return matchedRule.id;
+      }
+
+      const text = `${product.name || ""} ${product.desc || ""} ${product.description || ""}`.toLowerCase();
+      for (const rule of CATEGORY_RULES) {
+        if (rule.keywords.some((kw) => text.includes(kw.toLowerCase()))) {
+          return rule.id;
+        }
+      }
+      return "other";
+    }
+
+    function getCategoryLabel(catId) {
+      if (catId === "all") return "الكل";
+      if (catId === "other") return "متنوعة";
+      const found = CATEGORY_RULES.find((r) => r.id === catId);
+      return found ? found.label : "متنوعة";
+    }
+
+    function renderCategoryButtons(sourceList = allProducts) {
+      const counts = { all: sourceList.length };
+      for (const p of sourceList) {
+        const cid = detectCategory(p);
+        counts[cid] = (counts[cid] || 0) + 1;
+      }
+
+      const orderedIds = ["all", ...CATEGORY_RULES.map((r) => r.id), "other"];
+      const activeIds = orderedIds.filter((id) => id === "all" || (counts[id] || 0) > 0);
+
+      if (!activeIds.includes(activeCategory)) {
+        activeCategory = "all";
+      }
+
+      categoryButtonsContainer.innerHTML = activeIds
+        .map((id) => {
+          const label = getCategoryLabel(id);
+          const count = counts[id] || 0;
+          const isActive = activeCategory === id ? "active" : "";
+          return `<button type="button" class="cat-btn ${isActive}" data-cat="${id}">${label} (${count})</button>`;
+        })
+        .join("");
+
+      categoryButtonsContainer.querySelectorAll(".cat-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          activeCategory = btn.dataset.cat;
+          renderProducts();
+        });
+      });
+    }
+
+    function renderProducts() {
+      const query = searchInput.value.trim().toLowerCase();
+      const onlyAvailable = inStockOnly.checked;
+
+      const filtered = allProducts.filter((item) => {
+        const stockNum = Number(item.stock ?? 0);
+        const matchesStock = !onlyAvailable || stockNum > 0;
+        const matchesQuery =
+          !query ||
+          String(item.name || "").toLowerCase().includes(query) ||
+          String(item.desc || "").toLowerCase().includes(query);
+
+        return matchesStock && matchesQuery;
+      });
+
+      renderCategoryButtons(filtered);
+
+      const finalList = filtered.filter((item) => {
+        return activeCategory === "all" || detectCategory(item) === activeCategory;
+      });
+
+      productsCount.textContent = `عدد المنتجات المعروضة: ${finalList.length}`;
+
+      if (!finalList.length) {
+        productsContainer.innerHTML = `<div class="state-box">لا توجد منتجات مطابقة لبحثك حالياً.</div>`;
+        return;
+      }
+
+      productsContainer.innerHTML = finalList
+        .map((item) => {
+          const stockNum = Number(item.stock ?? 0);
+          const isAvailable = stockNum > 0;
+          const rawPrice = parsePriceNumber(item.price);
+          const rawImg = String(item.image || "").trim();
+          const fallbackImg = `https://placehold.co/600x400/0f172a/ffffff?text=${encodeURIComponent(item.name || "Byte Zone")}`;
+          const isValidImg =
+            rawImg &&
+            !rawImg.toLowerCase().startsWith("file://") &&
+            (/^(https?:\/\/|\.\/|\.\.\/|images\/)/i.test(rawImg) || /\.(jpg|jpeg|png|webp|gif)$/i.test(rawImg));
+
+          const imgSrc = isValidImg ? rawImg : fallbackImg;
+
+          return `
+            <article class="card">
+              <div class="card-img-wrap">
+                <img
+                  src="${imgSrc}"
+                  alt="${item.name || "منتج Byte Zone"}"
+                  loading="lazy"
+                  onerror="this.onerror=null; this.src='${fallbackImg}';"
+                />
+              </div>
+              <div class="card-body">
+                <h3 class="card-title">${item.name || "منتج بدون اسم"}</h3>
+                <p class="card-desc">${item.desc || ""}</p>
+                <div class="card-meta">
+                  <span class="price">${formatPrice(rawPrice)}</span>
+                  <span class="stock-badge ${isAvailable ? "in-stock" : "out-stock"}">
+                    ${isAvailable ? `متوفر (${stockNum})` : "غير متوفر حالياً"}
+                  </span>
+                </div>
+                <button
+                  type="button"
+                  class="btn-order"
+                  onclick="openOrderModal('${String(item.name || "").replace(/'/g, "\\'")}', ${rawPrice})"
+                >
+                  اطلب الآن
+                </button>
+              </div>
+            </article>
+          `;
+        })
+        .join("");
+    }
+
+    async function loadProducts() {
+      if (!SCRIPT_URL || !SCRIPT_URL.startsWith("http")) {
+        allProducts = DEFAULT_PRODUCTS;
+        renderProducts();
+        return;
+      }
+
+      try {
+        const res = await fetch(SCRIPT_URL);
+        const data = await res.json();
+        const remoteList = Array.isArray(data) ? data : (data.products || []);
+        allProducts = remoteList.length ? remoteList : DEFAULT_PRODUCTS;
+        renderProducts();
+      } catch (err) {
+        allProducts = DEFAULT_PRODUCTS;
+        renderProducts();
+      }
+    }
+
+    window.openOrderModal = function (productName, productPrice) {
+      const cleanPrice = parsePriceNumber(productPrice);
+      modalProductTitle.textContent = `طلب: ${productName} (${formatPrice(cleanPrice)})`;
+      orderMessage.textContent = "";
+      orderForm.reset();
+      orderProductName.value = productName;
+      orderUnitPrice.value = cleanPrice;
+      orderQty.value = 1;
+      calculateShippingAndTotal();
+      orderModal.classList.add("open");
+    };
+
+    closeModal.addEventListener("click", () => orderModal.classList.remove("open"));
+    orderModal.addEventListener("click", (e) => {
+      if (e.target === orderModal) orderModal.classList.remove("open");
+    });
+
+    orderForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById("submitOrderBtn");
+      btn.disabled = true;
+      orderMessage.style.color = "#0284c7";
+      orderMessage.textContent = "جاري تسجيل طلبك...";
+
+      const qty = Math.max(1, parsePriceNumber(orderQty.value) || 1);
+      const { shippingCost, productsSubtotal, grandTotal, wilayaLabel, deliveryLabel } = calculateShippingAndTotal();
+      const details = document.getElementById("customerAddress").value.trim();
+
+      const payload = {
+        productName: orderProductName.value,
+        product: orderProductName.value,
+        qty: qty,
+        quantity: qty,
+        productPrice: productsSubtotal,
+        shipping: shippingCost,
+        price: grandTotal,
+        name: document.getElementById("customerName").value.trim(),
+        phone: document.getElementById("customerPhone").value.trim(),
+        wilaya: wilayaLabel,
+        deliveryType: deliveryLabel,
+        address: `${details} — ${deliveryLabel} (توصيل: ${shippingCost} دج | المجموع: ${grandTotal} دج)`
+      };
+
+      try {
+        await fetch(SCRIPT_URL, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify(payload)
+        });
+        orderMessage.style.color = "#16a34a";
+        orderMessage.textContent = `تم استلام طلبك بنجاح! المجموع: ${grandTotal.toLocaleString("en-US")} دج.`;
+        orderForm.reset();
+        setTimeout(() => orderModal.classList.remove("open"), 1800);
+      } catch {
+        orderMessage.style.color = "#dc2626";
+        orderMessage.textContent = "تعذر الإرسال التلقائي، حاول مرة أخرى.";
+      } finally {
+        btn.disabled = false;
+      }
+    });
+
+    searchInput.addEventListener("input", renderProducts);
+    inStockOnly.addEventListener("change", renderProducts);
+
+    loadProducts();
+  </script>
+</body>
+</html>
